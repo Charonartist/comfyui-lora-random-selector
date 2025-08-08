@@ -1,0 +1,479 @@
+{
+  "last_node_id": 12,
+  "last_link_id": 15,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoRARandomSelector",
+      "pos": [100, 100],
+      "size": [300, 400],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "selected_lora_info",
+          "type": "STRING",
+          "links": [1],
+          "slot_index": 0
+        },
+        {
+          "name": "lora_path",
+          "type": "STRING",
+          "links": [2],
+          "slot_index": 1
+        },
+        {
+          "name": "lora_strength",
+          "type": "FLOAT", 
+          "links": [3],
+          "slot_index": 2
+        },
+        {
+          "name": "trigger_words",
+          "type": "STRING",
+          "links": [4],
+          "slot_index": 3
+        },
+        {
+          "name": "combined_prompt",
+          "type": "STRING",
+          "links": [5],
+          "slot_index": 4
+        },
+        {
+          "name": "debug_info",
+          "type": "STRING",
+          "links": [6],
+          "slot_index": 5
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoRARandomSelector"
+      },
+      "widgets_values": [
+        "character",
+        1,
+        2,
+        -1,
+        true,
+        -1,
+        "beautiful portrait"
+      ],
+      "title": "LoRA Random Selector"
+    },
+    {
+      "id": 2,
+      "type": "ShowText",
+      "pos": [450, 100],
+      "size": [300, 200],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 5,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [7],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "Combined Prompt Output"
+    },
+    {
+      "id": 3,
+      "type": "ShowText",
+      "pos": [450, 350],
+      "size": [300, 200],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 4,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "Trigger Words Output"
+    },
+    {
+      "id": 4,
+      "type": "ShowText",
+      "pos": [800, 100],
+      "size": [300, 200],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 1,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "LoRA Info (JSON)"
+    },
+    {
+      "id": 5,
+      "type": "ShowText",
+      "pos": [800, 350],
+      "size": [300, 200],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 6,
+          "slot_index": 0
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "ShowText"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "title": "Debug Information"
+    },
+    {
+      "id": 6,
+      "type": "LoraLoader",
+      "pos": [100, 550],
+      "size": [315, 126],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 8
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 9
+        },
+        {
+          "name": "lora_name",
+          "type": "STRING",
+          "link": 2,
+          "widget": {
+            "name": "lora_name"
+          }
+        },
+        {
+          "name": "strength_model",
+          "type": "FLOAT",
+          "link": 3,
+          "widget": {
+            "name": "strength_model"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [10],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [11],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoader"
+      },
+      "widgets_values": [
+        "example_lora.safetensors",
+        0.8,
+        0.8
+      ],
+      "title": "Dynamic LoRA Loader"
+    },
+    {
+      "id": 7,
+      "type": "CheckpointLoaderSimple",
+      "pos": [100, 750],
+      "size": [315, 98],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [8],
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [9],
+          "slot_index": 1
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [12],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "sd_v1-5_pruned.ckpt"
+      ],
+      "title": "Base Model Loader"
+    },
+    {
+      "id": 8,
+      "type": "CLIPTextEncode",
+      "pos": [500, 550],
+      "size": [400, 200],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 11
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 7,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [13],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "beautiful portrait"
+      ],
+      "title": "Positive Prompt (with LoRA triggers)"
+    },
+    {
+      "id": 9,
+      "type": "CLIPTextEncode",
+      "pos": [500, 800],
+      "size": [400, 200],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [14],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "low quality, blurry"
+      ],
+      "title": "Negative Prompt"
+    },
+    {
+      "id": 10,
+      "type": "KSampler",
+      "pos": [950, 550],
+      "size": [315, 446],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 10
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 13
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 14
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [15],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "KSampler"
+      },
+      "widgets_values": [
+        0,
+        "fixed",
+        20,
+        7,
+        "euler",
+        "normal",
+        1
+      ],
+      "title": "Sampler with Random LoRA"
+    },
+    {
+      "id": 11,
+      "type": "VAEDecode",
+      "pos": [1300, 550],
+      "size": [210, 46],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 15
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "title": "VAE Decoder"
+    }
+  ],
+  "links": [
+    [1, 1, 0, 4, 0, "STRING"],
+    [2, 1, 1, 6, 2, "STRING"],
+    [3, 1, 2, 6, 3, "FLOAT"],
+    [4, 1, 3, 3, 0, "STRING"],
+    [5, 1, 4, 2, 0, "STRING"],
+    [6, 1, 5, 5, 0, "STRING"],
+    [7, 2, 0, 8, 1, "STRING"],
+    [8, 7, 0, 6, 0, "MODEL"],
+    [9, 7, 1, 6, 1, "CLIP"],
+    [10, 6, 0, 10, 0, "MODEL"],
+    [11, 6, 1, 8, 0, "CLIP"],
+    [12, 7, 2, 11, 1, "VAE"],
+    [13, 8, 0, 10, 1, "CONDITIONING"],
+    [14, 9, 0, 10, 2, "CONDITIONING"],
+    [15, 10, 0, 11, 0, "LATENT"]
+  ],
+  "groups": [
+    {
+      "title": "LoRA Random Selection",
+      "bounding": [80, 40, 1000, 500],
+      "color": "#3f789e"
+    },
+    {
+      "title": "Image Generation Pipeline",
+      "bounding": [80, 520, 1250, 500],
+      "color": "#a1309b"
+    }
+  ],
+  "config": {},
+  "extra": {
+    "workflow_name": "LoRA Random Selector Sample",
+    "workflow_description": "サンプルワークフロー：LoRAランダム選択ノードの基本的な使用例",
+    "workflow_version": "1.0.0",
+    "usage_instructions": [
+      "1. LoRARandomSelectorノードでカテゴリとパラメータを設定",
+      "2. 選択されたLoRAとトリガーワードが自動的に適用される",
+      "3. 結果を確認してから画像生成を実行",
+      "4. デバッグ情報で選択内容を確認可能"
+    ],
+    "notes": [
+      "このワークフローはLoRARandomSelectorノードの基本機能をデモンストレーションします",
+      "実際の使用時は、使用可能なLoRAファイルに合わせて設定ファイルを編集してください",
+      "ShowTextノードは出力確認用で、実際のワークフローでは削除可能です"
+    ]
+  }
+}

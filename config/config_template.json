@@ -1,0 +1,92 @@
+{
+  "_comment": "ComfyUI LoRA Random Selector - 設定テンプレートファイル",
+  "_description": "このファイルをコピーしてlora_config.jsonとして使用してください",
+  
+  "categories": {
+    "your_category_name": {
+      "description": "カテゴリの説明（日本語または英語）",
+      "loras": {
+        "your_lora_name": {
+          "file_path": "your_lora_file.safetensors",
+          "strength_default": 0.8,
+          "trigger_words": [
+            "trigger word 1",
+            "trigger word 2", 
+            "trigger word 3"
+          ],
+          "tags": ["tag1", "tag2", "tag3"]
+        }
+      }
+    }
+  },
+  
+  "global_settings": {
+    "_comment_max_trigger_words": "一度に選択する最大トリガーワード数",
+    "max_trigger_words": 3,
+    
+    "_comment_default_strength": "デフォルトのLoRA強度",
+    "default_strength": 0.7,
+    
+    "_comment_random_seed": "固定シード（nullの場合はランダム）",
+    "random_seed": null,
+    
+    "_comment_debug_mode": "デバッグモードの有効/無効",
+    "debug_mode": false,
+    
+    "_comment_file_validation": "ファイル存在確認の有効/無効",
+    "file_validation": true,
+    
+    "_comment_prompt_position": "トリガーワードの配置位置（beginning/end/both）",
+    "prompt_position": "beginning",
+    
+    "_comment_strength_range": "LoRA強度の範囲",
+    "strength_range": {
+      "min": 0.1,
+      "max": 2.0
+    }
+  },
+  
+  "_setup_instructions": {
+    "step1": "このファイルをlora_config.jsonにリネーム",
+    "step2": "categoriesセクションに自分のカテゴリを追加",
+    "step3": "各カテゴリにLoRA情報を追加",
+    "step4": "file_pathにLoRAファイルのパスを指定（ComfyUI/models/lorasからの相対パス）",
+    "step5": "trigger_wordsに適切なトリガーワードを配列で指定",
+    "step6": "strength_defaultでデフォルトの強度を設定（0.1～2.0）",
+    "step7": "ComfyUIを再起動してノードを有効化"
+  },
+  
+  "_examples": {
+    "character_example": {
+      "description": "キャラクター系LoRAの例",
+      "loras": {
+        "my_character": {
+          "file_path": "characters/my_character_v2.safetensors",
+          "strength_default": 0.8,
+          "trigger_words": [
+            "my character name",
+            "anime girl",
+            "blue hair",
+            "school uniform"
+          ],
+          "tags": ["character", "anime", "girl"]
+        }
+      }
+    },
+    "style_example": {
+      "description": "スタイル系LoRAの例", 
+      "loras": {
+        "my_art_style": {
+          "file_path": "styles/watercolor_style.safetensors",
+          "strength_default": 0.6,
+          "trigger_words": [
+            "watercolor painting",
+            "soft colors",
+            "artistic style"
+          ],
+          "tags": ["style", "art", "watercolor"]
+        }
+      }
+    }
+  }
+}

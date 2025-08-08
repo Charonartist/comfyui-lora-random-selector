@@ -1,0 +1,182 @@
+{
+  "categories": {
+    "character": {
+      "description": "キャラクター系LoRA",
+      "loras": {
+        "anime_girl_v1": {
+          "file_path": "anime_girl_v1.safetensors",
+          "strength_default": 0.8,
+          "trigger_words": [
+            "anime girl",
+            "cute girl", 
+            "kawaii",
+            "2d girl",
+            "anime character"
+          ],
+          "tags": ["anime", "character", "girl", "2d"]
+        },
+        "realistic_portrait": {
+          "file_path": "realistic_portrait.safetensors",
+          "strength_default": 0.7,
+          "trigger_words": [
+            "realistic",
+            "portrait",
+            "photorealistic",
+            "real person",
+            "photo"
+          ],
+          "tags": ["realistic", "portrait", "photo"]
+        },
+        "manga_style": {
+          "file_path": "manga_style_character.safetensors",
+          "strength_default": 0.75,
+          "trigger_words": [
+            "manga style",
+            "manga character",
+            "black and white",
+            "monochrome",
+            "comic style"
+          ],
+          "tags": ["manga", "comic", "monochrome"]
+        }
+      }
+    },
+    "style": {
+      "description": "スタイル・画風系LoRA",
+      "loras": {
+        "watercolor": {
+          "file_path": "watercolor_style.safetensors",
+          "strength_default": 0.6,
+          "trigger_words": [
+            "watercolor",
+            "painting",
+            "artistic",
+            "traditional art",
+            "soft colors"
+          ],
+          "tags": ["style", "art", "painting", "traditional"]
+        },
+        "oil_painting": {
+          "file_path": "oil_painting_style.safetensors", 
+          "strength_default": 0.65,
+          "trigger_words": [
+            "oil painting",
+            "classical art",
+            "renaissance style",
+            "fine art",
+            "masterpiece"
+          ],
+          "tags": ["style", "classical", "oil", "fine art"]
+        },
+        "cyberpunk": {
+          "file_path": "cyberpunk_style.safetensors",
+          "strength_default": 0.8,
+          "trigger_words": [
+            "cyberpunk",
+            "neon lights",
+            "futuristic",
+            "sci-fi",
+            "digital art"
+          ],
+          "tags": ["cyberpunk", "sci-fi", "futuristic", "neon"]
+        }
+      }
+    },
+    "environment": {
+      "description": "背景・環境系LoRA",
+      "loras": {
+        "fantasy_landscape": {
+          "file_path": "fantasy_landscape.safetensors",
+          "strength_default": 0.7,
+          "trigger_words": [
+            "fantasy landscape",
+            "magical forest",
+            "enchanted",
+            "mystical",
+            "fairy tale"
+          ],
+          "tags": ["fantasy", "landscape", "environment", "magical"]
+        },
+        "urban_cityscape": {
+          "file_path": "urban_city.safetensors",
+          "strength_default": 0.65,
+          "trigger_words": [
+            "urban cityscape",
+            "modern city",
+            "skyscrapers",
+            "metropolitan",
+            "city lights"
+          ],
+          "tags": ["urban", "city", "modern", "architecture"]
+        },
+        "nature_scenery": {
+          "file_path": "nature_scenery.safetensors", 
+          "strength_default": 0.6,
+          "trigger_words": [
+            "nature scenery",
+            "natural landscape",
+            "mountains",
+            "forest",
+            "peaceful"
+          ],
+          "tags": ["nature", "landscape", "peaceful", "outdoor"]
+        }
+      }
+    },
+    "concept": {
+      "description": "コンセプト・テーマ系LoRA",
+      "loras": {
+        "steampunk": {
+          "file_path": "steampunk_concept.safetensors",
+          "strength_default": 0.75,
+          "trigger_words": [
+            "steampunk",
+            "victorian",
+            "mechanical",
+            "brass gears",
+            "retro futuristic"
+          ],
+          "tags": ["steampunk", "victorian", "mechanical", "retro"]
+        },
+        "minimalist": {
+          "file_path": "minimalist_concept.safetensors",
+          "strength_default": 0.5,
+          "trigger_words": [
+            "minimalist",
+            "simple",
+            "clean design",
+            "geometric",
+            "negative space"
+          ],
+          "tags": ["minimalist", "simple", "clean", "modern"]
+        }
+      }
+    }
+  },
+  "global_settings": {
+    "max_trigger_words": 3,
+    "default_strength": 0.7,
+    "random_seed": null,
+    "debug_mode": false,
+    "file_validation": true,
+    "prompt_position": "beginning",
+    "strength_range": {
+      "min": 0.1,
+      "max": 2.0
+    }
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "created_by": "ComfyUI LoRA Random Selector",
+    "last_modified": "2024-01-01T00:00:00Z",
+    "description": "ComfyUIカスタムノード用LoRA設定ファイル - カテゴリ、LoRAファイル、トリガーワードを管理",
+    "supported_formats": ["safetensors", "ckpt", "pt"],
+    "notes": [
+      "file_pathはComfyUI/models/lorasディレクトリからの相対パスで指定",
+      "trigger_wordsは配列形式で複数指定可能",
+      "strength_defaultは0.1～2.0の範囲で指定",
+      "カテゴリやLoRAは自由に追加・編集可能",
+      "設定変更後はComfyUIの再読み込みが必要"
+    ]
+  }
+}
