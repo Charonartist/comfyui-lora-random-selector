@@ -1,0 +1,14 @@
+{
+  "category_info": {
+    "name": "あいうえお",
+    "description": "日本語ファイル名テスト"
+  },
+  "loras": {
+    "japanese_test": {
+      "file_path": "japanese_test.safetensors",
+      "strength_default": 0.7,
+      "trigger_words": ["日本語テスト", "ひらがな"],
+      "tags": ["japanese", "test"]
+    }
+  }
+}

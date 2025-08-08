@@ -1,0 +1,14 @@
+{
+  "category_info": {
+    "name": "test_custom_category",
+    "description": "テスト用カスタムカテゴリ"
+  },
+  "loras": {
+    "test_lora": {
+      "file_path": "test_lora.safetensors",
+      "strength_default": 0.8,
+      "trigger_words": ["test trigger", "custom test"],
+      "tags": ["test", "custom"]
+    }
+  }
+}
