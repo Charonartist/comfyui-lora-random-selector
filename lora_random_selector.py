@@ -90,14 +90,15 @@ class LoRARandomSelector:
             }
         }
     
-    RETURN_TYPES = ("STRING", "STRING", "FLOAT", "STRING", "STRING", "STRING")
+    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
     RETURN_NAMES = (
         "selected_lora_info", 
-        "lora_path", 
-        "lora_strength", 
+        "lora_paths", 
+        "lora_strengths", 
         "trigger_words", 
         "combined_prompt",
-        "debug_info"
+        "debug_info",
+        "lora_count"
     )
     
     FUNCTION = "select_random_lora"
@@ -129,7 +130,7 @@ class LoRARandomSelector:
         enable_trigger_words: bool = True,
         strength_override: float = -1.0,
         base_prompt: str = ""
-    ) -> Tuple[str, str, float, str, str, str]:
+    ) -> Tuple[str, str, str, str, str, str, str]:
         """
         LoRAをランダムに選択し、トリガーワードを適用する
         
@@ -233,7 +234,8 @@ class LoRARandomSelector:
                 lora_strength,
                 trigger_words,
                 combined_prompt,
-                debug_info
+                debug_info,
+                str(len(selected_loras))  # lora_count
             )
             
         except Exception as e:
@@ -258,7 +260,7 @@ class LoRARandomSelector:
         # ファイルパスがある場合はそのまま返す、なければLoRA名を返す
         return file_path if file_path else lora_name
     
-    def _create_error_response(self, error_msg: str) -> Tuple[str, str, float, str, str, str]:
+    def _create_error_response(self, error_msg: str) -> Tuple[str, str, str, str, str, str, str]:
         """
         エラー時のレスポンスを作成
         
@@ -277,11 +279,12 @@ class LoRARandomSelector:
         
         return (
             json.dumps(error_info, ensure_ascii=False, indent=2),  # selected_lora_info
-            "",           # lora_path
-            0.7,          # lora_strength
+            "",           # lora_paths
+            "0.7",        # lora_strengths
             "",           # trigger_words
             error_msg,    # combined_prompt
-            error_msg     # debug_info
+            error_msg,    # debug_info
+            "0"           # lora_count
         )
     
     def _create_debug_info(
