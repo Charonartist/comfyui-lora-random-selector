@@ -1,0 +1,45 @@
+{
+  "category_info": {
+    "name": "style",
+    "description": "スタイル・画風系LoRA",
+    "tags": ["style", "art", "painting", "artistic"]
+  },
+  "loras": {
+    "watercolor": {
+      "file_path": "watercolor_style.safetensors",
+      "strength_default": 0.6,
+      "trigger_words": [
+        "watercolor",
+        "painting",
+        "artistic",
+        "traditional art",
+        "soft colors"
+      ],
+      "tags": ["style", "art", "painting", "traditional"]
+    },
+    "oil_painting": {
+      "file_path": "oil_painting_style.safetensors", 
+      "strength_default": 0.65,
+      "trigger_words": [
+        "oil painting",
+        "classical art",
+        "renaissance style",
+        "fine art",
+        "masterpiece"
+      ],
+      "tags": ["style", "classical", "oil", "fine art"]
+    },
+    "cyberpunk": {
+      "file_path": "cyberpunk_style.safetensors",
+      "strength_default": 0.8,
+      "trigger_words": [
+        "cyberpunk",
+        "neon lights",
+        "futuristic",
+        "sci-fi",
+        "digital art"
+      ],
+      "tags": ["cyberpunk", "sci-fi", "futuristic", "neon"]
+    }
+  }
+}

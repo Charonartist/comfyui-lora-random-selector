@@ -1,0 +1,26 @@
+{
+  "global_settings": {
+    "max_trigger_words": 3,
+    "default_strength": 0.7,
+    "random_seed": null,
+    "debug_mode": false,
+    "file_validation": true,
+    "prompt_position": "beginning",
+    "strength_range": {
+      "min": 0.1,
+      "max": 2.0
+    }
+  },
+  "metadata": {
+    "version": "2.0.0",
+    "created_by": "ComfyUI LoRA Random Selector",
+    "last_modified": "2024-01-01T00:00:00Z",
+    "description": "ComfyUIカスタムノード用グローバル設定ファイル",
+    "config_type": "global_settings",
+    "notes": [
+      "カテゴリ別設定は config/lora_style/ フォルダ内のJSONファイルで管理",
+      "各JSONファイル名がカテゴリ名として認識される",
+      "設定変更後はComfyUIの再読み込みが必要"
+    ]
+  }
+}

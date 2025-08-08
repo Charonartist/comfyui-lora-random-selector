@@ -1,0 +1,45 @@
+{
+  "category_info": {
+    "name": "environment",
+    "description": "背景・環境系LoRA",
+    "tags": ["environment", "background", "landscape", "scenery"]
+  },
+  "loras": {
+    "fantasy_landscape": {
+      "file_path": "fantasy_landscape.safetensors",
+      "strength_default": 0.7,
+      "trigger_words": [
+        "fantasy landscape",
+        "magical forest",
+        "enchanted",
+        "mystical",
+        "fairy tale"
+      ],
+      "tags": ["fantasy", "landscape", "environment", "magical"]
+    },
+    "urban_cityscape": {
+      "file_path": "urban_city.safetensors",
+      "strength_default": 0.65,
+      "trigger_words": [
+        "urban cityscape",
+        "modern city",
+        "skyscrapers",
+        "metropolitan",
+        "city lights"
+      ],
+      "tags": ["urban", "city", "modern", "architecture"]
+    },
+    "nature_scenery": {
+      "file_path": "nature_scenery.safetensors", 
+      "strength_default": 0.6,
+      "trigger_words": [
+        "nature scenery",
+        "natural landscape",
+        "mountains",
+        "forest",
+        "peaceful"
+      ],
+      "tags": ["nature", "landscape", "peaceful", "outdoor"]
+    }
+  }
+}

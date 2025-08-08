@@ -176,7 +176,8 @@ class LoRARandomSelector:
             
             # 出力値の準備
             selected_lora_info = json.dumps(formatted_info, ensure_ascii=False, indent=2)
-            lora_path = selected_loras[0][1].get('file_path', '') if selected_loras else ''
+            # LoRAファイル名のみを取得（ComfyUIローダー用）
+            lora_path = self._get_lora_name_for_loader(selected_loras[0]) if selected_loras else ''
             lora_strength = strengths[0] if strengths else 0.7
             trigger_words = formatted_info.get('all_trigger_words', '')
             
@@ -212,6 +213,30 @@ class LoRARandomSelector:
             error_msg = f"LoRA選択中にエラーが発生: {str(e)}"
             self.logger.error(error_msg, exc_info=True)
             return self._create_error_response(error_msg)
+    
+    def _get_lora_name_for_loader(self, selected_lora: Tuple[str, Dict[str, Any]]) -> str:
+        """
+        ComfyUIローダー用のLoRA名を取得
+        ファイルパスから拡張子を除いたファイル名のみを返す
+        
+        Args:
+            selected_lora: (LoRA名, LoRA情報)のタプル
+            
+        Returns:
+            str: ComfyUIローダー用のLoRA名（拡張子なし）
+        """
+        lora_name, lora_info = selected_lora
+        file_path = lora_info.get('file_path', '')
+        
+        if not file_path:
+            return lora_name
+        
+        # ファイルパスからファイル名のみを抽出（拡張子を除去）
+        from pathlib import Path
+        file_name = Path(file_path).stem
+        
+        # ファイル名が空の場合はLoRA名を使用
+        return file_name if file_name else lora_name
     
     def _create_error_response(self, error_msg: str) -> Tuple[str, str, float, str, str, str]:
         """

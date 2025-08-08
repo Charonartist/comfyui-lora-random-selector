@@ -26,37 +26,72 @@ A ComfyUI custom node that randomly selects LoRA files by category and automatic
 
 ## Configuration
 
-### Setting up your LoRAs
+### Setting up your LoRAs (v2.0 Multi-File Structure)
 
-1. **Edit the configuration file**: Open `config/lora_config.json` in a text editor
-2. **Add your categories**: Create categories that make sense for your LoRA collection
-3. **Add your LoRAs**: For each LoRA, specify the file path, default strength, and trigger words
-4. **Save and restart**: Save the file and restart ComfyUI to apply changes
+**New in v2.0**: Configuration is now split into multiple files for better organization!
 
-### Configuration File Structure
+1. **Global Settings**: Edit `config/global_settings.json` for general settings
+2. **Category Files**: Create individual JSON files in `config/lora_style/` directory
+3. **Auto-Detection**: Each JSON file name becomes a category (e.g., `fantasy.json` → "fantasy" category)
+4. **Save and restart**: Save files and restart ComfyUI to apply changes
+
+### New File Structure
+
+```
+comfyui-lora-random-selector/
+├── config/
+│   ├── global_settings.json        # Global settings
+│   └── lora_style/                  # Category files directory
+│       ├── character.json           # Character LoRAs
+│       ├── style.json               # Style LoRAs
+│       ├── environment.json         # Environment LoRAs
+│       └── concept.json             # Concept LoRAs
+```
+
+### Category File Structure
+
+Each category file in `config/lora_style/` follows this structure:
 
 ```json
 {
-  "categories": {
-    "character": {
-      "description": "Character LoRAs",
-      "loras": {
-        "anime_girl_v1": {
-          "file_path": "anime_girl_v1.safetensors",
-          "strength_default": 0.8,
-          "trigger_words": ["anime girl", "cute girl", "kawaii"],
-          "tags": ["anime", "character", "girl"]
-        }
-      }
-    }
+  "category_info": {
+    "name": "character",
+    "description": "Character LoRAs"
   },
-  "global_settings": {
-    "max_trigger_words": 3,
-    "default_strength": 0.7,
-    "random_seed": null
+  "loras": {
+    "anime_girl_v1": {
+      "file_path": "anime_girl_v1.safetensors",
+      "strength_default": 0.8,
+      "trigger_words": ["anime girl", "cute girl", "kawaii"],
+      "tags": ["anime", "character", "girl"]
+    }
   }
 }
 ```
+
+### Global Settings File
+
+`config/global_settings.json`:
+```json
+{
+  "global_settings": {
+    "max_trigger_words": 3,
+    "default_strength": 0.7,
+    "random_seed": null,
+    "debug_mode": false,
+    "file_validation": true
+  }
+}
+```
+
+### Adding New Categories
+
+Simply create a new JSON file in `config/lora_style/` directory:
+
+1. Create `config/lora_style/my_category.json`
+2. Follow the category file structure above
+3. Restart ComfyUI
+4. "my_category" will appear in the category dropdown
 
 ### File Path Specification
 
@@ -105,24 +140,20 @@ A ComfyUI custom node that randomly selects LoRA files by category and automatic
 
 ## Advanced Configuration
 
-### Adding New Categories
+### Migration from v1.0
 
-1. Open `config/lora_config.json`
-2. Add a new category under the "categories" section:
-   ```json
-   "my_category": {
-     "description": "My custom LoRA category",
-     "loras": {
-       "my_lora": {
-         "file_path": "path/to/my_lora.safetensors",
-         "strength_default": 0.75,
-         "trigger_words": ["my trigger", "custom style"],
-         "tags": ["custom", "style"]
-       }
-     }
-   }
-   ```
-3. Restart ComfyUI
+If you have an existing `config/lora_config.json` file, the tool will automatically migrate it to the new structure:
+
+1. **Automatic Migration**: On first run, the old file will be split into multiple files
+2. **Backup Created**: Your original file is saved as `lora_config_backup.json`
+3. **New Structure**: Categories are separated into individual files in `config/lora_style/`
+
+### Legacy Support
+
+The tool automatically handles:
+- Migration from single JSON file to multi-file structure
+- Backup of original configuration
+- Seamless transition without data loss
 
 ### Global Settings
 
@@ -184,4 +215,10 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Version History
 
+- **v2.0.0**: 
+  - **Multi-file configuration**: Split single JSON into multiple category files
+  - **Auto-category detection**: JSON file names automatically become categories
+  - **Improved LoRA path handling**: Better ComfyUI loader compatibility
+  - **Automatic migration**: Seamless upgrade from v1.0 configuration
+  - **Enhanced scalability**: Support for large LoRA collections
 - **v1.0.0**: Initial release with basic LoRA selection and trigger word functionality

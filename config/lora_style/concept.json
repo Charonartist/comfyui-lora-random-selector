@@ -1,0 +1,33 @@
+{
+  "category_info": {
+    "name": "concept",
+    "description": "コンセプト・テーマ系LoRA",
+    "tags": ["concept", "theme", "mood", "atmosphere"]
+  },
+  "loras": {
+    "steampunk": {
+      "file_path": "steampunk_concept.safetensors",
+      "strength_default": 0.75,
+      "trigger_words": [
+        "steampunk",
+        "victorian",
+        "mechanical",
+        "brass gears",
+        "retro futuristic"
+      ],
+      "tags": ["steampunk", "victorian", "mechanical", "retro"]
+    },
+    "minimalist": {
+      "file_path": "minimalist_concept.safetensors",
+      "strength_default": 0.5,
+      "trigger_words": [
+        "minimalist",
+        "simple",
+        "clean design",
+        "geometric",
+        "negative space"
+      ],
+      "tags": ["minimalist", "simple", "clean", "modern"]
+    }
+  }
+}

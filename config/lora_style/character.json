@@ -1,0 +1,45 @@
+{
+  "category_info": {
+    "name": "character",
+    "description": "キャラクター系LoRA",
+    "tags": ["character", "人物", "anime", "realistic"]
+  },
+  "loras": {
+    "anime_girl_v1": {
+      "file_path": "anime_girl_v1.safetensors",
+      "strength_default": 0.8,
+      "trigger_words": [
+        "anime girl",
+        "cute girl", 
+        "kawaii",
+        "2d girl",
+        "anime character"
+      ],
+      "tags": ["anime", "character", "girl", "2d"]
+    },
+    "realistic_portrait": {
+      "file_path": "realistic_portrait.safetensors",
+      "strength_default": 0.7,
+      "trigger_words": [
+        "realistic",
+        "portrait",
+        "photorealistic",
+        "real person",
+        "photo"
+      ],
+      "tags": ["realistic", "portrait", "photo"]
+    },
+    "manga_style": {
+      "file_path": "manga_style_character.safetensors",
+      "strength_default": 0.75,
+      "trigger_words": [
+        "manga style",
+        "manga character",
+        "black and white",
+        "monochrome",
+        "comic style"
+      ],
+      "tags": ["manga", "comic", "monochrome"]
+    }
+  }
+}
