@@ -40,6 +40,10 @@ class LoRARandomSelector:
         except Exception as e:
             categories = ["default"]
             print(f"カテゴリ読み込みエラー: {e}")
+            import traceback
+            traceback.print_exc()
+        
+        print(f"[LoRARandomSelector] 検出されたカテゴリ: {categories}")
         
         return {
             "required": {
