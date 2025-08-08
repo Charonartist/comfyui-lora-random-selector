@@ -50,13 +50,6 @@ class LoRARandomSelector:
                 "category": (categories, {
                     "default": categories[0] if categories else "default"
                 }),
-                "num_loras": ("INT", {
-                    "default": 1,
-                    "min": 1,
-                    "max": 5,
-                    "step": 1,
-                    "display": "number"
-                }),
                 "trigger_word_count": ("INT", {
                     "default": 100,
                     "min": 0,
@@ -90,15 +83,14 @@ class LoRARandomSelector:
             }
         }
     
-    RETURN_TYPES = ("STRING", "STRING", "STRING", "STRING", "STRING", "STRING", "STRING")
+    RETURN_TYPES = ("STRING", "STRING", "FLOAT", "STRING", "STRING", "STRING")
     RETURN_NAMES = (
         "selected_lora_info", 
-        "lora_paths", 
-        "lora_strengths", 
+        "lora_path", 
+        "lora_strength", 
         "trigger_words", 
         "combined_prompt",
-        "debug_info",
-        "lora_count"
+        "debug_info"
     )
     
     FUNCTION = "select_random_lora"
@@ -124,19 +116,17 @@ class LoRARandomSelector:
     def select_random_lora(
         self, 
         category: str,
-        num_loras: int = 1,
         trigger_word_count: int = 1,
         seed: int = -1,
         enable_trigger_words: bool = True,
         strength_override: float = -1.0,
         base_prompt: str = ""
-    ) -> Tuple[str, str, str, str, str, str, str]:
+    ) -> Tuple[str, str, float, str, str, str]:
         """
         LoRAをランダムに選択し、トリガーワードを適用する
         
         Args:
             category: 選択するカテゴリ
-            num_loras: 選択するLoRAの数
             trigger_word_count: 適用するトリガーワード数
             seed: ランダムシード（-1の場合はランダム）
             enable_trigger_words: トリガーワード適用の有効/無効
@@ -160,10 +150,10 @@ class LoRARandomSelector:
             # シード値の処理
             actual_seed = None if seed < 0 else seed
             
-            # LoRAをランダム選択
+            # LoRAをランダム選択（単一LoRAのみ）
             selected_loras = self.lora_selector.select_random_lora(
                 loras, 
-                count=num_loras, 
+                count=1, 
                 seed=actual_seed
             )
             
@@ -231,11 +221,10 @@ class LoRARandomSelector:
             return (
                 selected_lora_info,
                 lora_path,
-                lora_strength,
+                lora_strength,  # float値
                 trigger_words,
                 combined_prompt,
-                debug_info,
-                str(len(selected_loras))  # lora_count
+                debug_info
             )
             
         except Exception as e:
@@ -260,7 +249,7 @@ class LoRARandomSelector:
         # ファイルパスがある場合はそのまま返す、なければLoRA名を返す
         return file_path if file_path else lora_name
     
-    def _create_error_response(self, error_msg: str) -> Tuple[str, str, str, str, str, str, str]:
+    def _create_error_response(self, error_msg: str) -> Tuple[str, str, float, str, str, str]:
         """
         エラー時のレスポンスを作成
         
@@ -279,12 +268,11 @@ class LoRARandomSelector:
         
         return (
             json.dumps(error_info, ensure_ascii=False, indent=2),  # selected_lora_info
-            "",           # lora_paths
-            "0.7",        # lora_strengths
+            "",           # lora_path
+            0.7,          # lora_strength (float)
             "",           # trigger_words
             error_msg,    # combined_prompt
-            error_msg,    # debug_info
-            "0"           # lora_count
+            error_msg     # debug_info
         )
     
     def _create_debug_info(
