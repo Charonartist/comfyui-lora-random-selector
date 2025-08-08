@@ -8,8 +8,13 @@ import logging
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-from .utils.config_manager import ConfigManager
-from .utils.lora_utils import LoRASelector, PromptBuilder
+try:
+    from .utils.config_manager import ConfigManager
+    from .utils.lora_utils import LoRASelector, PromptBuilder
+except ImportError:
+    # スタンドアローン実行時
+    from utils.config_manager import ConfigManager
+    from utils.lora_utils import LoRASelector, PromptBuilder
 
 class LoRARandomSelector:
     """ComfyUI用LoRAランダム選択カスタムノード"""
@@ -26,14 +31,15 @@ class LoRARandomSelector:
     @classmethod
     def INPUT_TYPES(cls):
         """入力パラメータの定義"""
-        # 設定ファイルからカテゴリリストを取得
+        # 設定ファイルからカテゴリリストを動的に取得
         try:
             temp_config = ConfigManager()
             categories = temp_config.get_categories()
             if not categories:
                 categories = ["default"]
-        except Exception:
+        except Exception as e:
             categories = ["default"]
+            print(f"カテゴリ読み込みエラー: {e}")
         
         return {
             "required": {
@@ -48,9 +54,9 @@ class LoRARandomSelector:
                     "display": "number"
                 }),
                 "trigger_word_count": ("INT", {
-                    "default": 1,
+                    "default": 100,
                     "min": 0,
-                    "max": 5,
+                    "max": 100,
                     "step": 1,
                     "display": "number"
                 }),
@@ -92,6 +98,23 @@ class LoRARandomSelector:
     
     FUNCTION = "select_random_lora"
     CATEGORY = "LoRA"
+    
+    @classmethod
+    def IS_CHANGED(cls, **kwargs):
+        """設定ファイルの変更を検出してUIを更新"""
+        try:
+            config = ConfigManager()
+            # カテゴリファイルの最終更新時刻をチェック
+            if config.lora_style_dir.exists():
+                import os
+                max_mtime = 0
+                for json_file in config.lora_style_dir.glob("*.json"):
+                    mtime = os.path.getmtime(json_file)
+                    max_mtime = max(max_mtime, mtime)
+                return str(max_mtime)
+        except Exception:
+            pass
+        return "0"
     
     def select_random_lora(
         self, 
@@ -216,27 +239,20 @@ class LoRARandomSelector:
     
     def _get_lora_name_for_loader(self, selected_lora: Tuple[str, Dict[str, Any]]) -> str:
         """
-        ComfyUIローダー用のLoRA名を取得
-        ファイルパスから拡張子を除いたファイル名のみを返す
+        ComfyUIローダー用のLoRAパスを取得
+        ファイルパスをそのまま返す（拡張子あり）
         
         Args:
             selected_lora: (LoRA名, LoRA情報)のタプル
             
         Returns:
-            str: ComfyUIローダー用のLoRA名（拡張子なし）
+            str: ComfyUIローダー用のLoRAパス
         """
         lora_name, lora_info = selected_lora
         file_path = lora_info.get('file_path', '')
         
-        if not file_path:
-            return lora_name
-        
-        # ファイルパスからファイル名のみを抽出（拡張子を除去）
-        from pathlib import Path
-        file_name = Path(file_path).stem
-        
-        # ファイル名が空の場合はLoRA名を使用
-        return file_name if file_name else lora_name
+        # ファイルパスがある場合はそのまま返す、なければLoRA名を返す
+        return file_path if file_path else lora_name
     
     def _create_error_response(self, error_msg: str) -> Tuple[str, str, float, str, str, str]:
         """
