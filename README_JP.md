@@ -77,7 +77,6 @@
 
 #### 必須入力
 - **category**: 選択するLoRAカテゴリ
-- **num_loras**: 選択するLoRAの数（1-5）
 - **trigger_word_count**: LoRAあたりのトリガーワード数（0-5）
 - **seed**: 再現可能な結果のためのランダムシード（-1でランダム）
 - **enable_trigger_words**: 自動トリガーワード適用の有効/無効
@@ -98,10 +97,9 @@
 
 1. 「LoRA Random Selector」ノードを接続
 2. カテゴリを「character」に設定
-3. num_lorasを1に設定
-4. trigger_word_countを2に設定
-5. 「combined_prompt」出力をテキストエンコーダーに接続
-6. 「lora_path」と「lora_strength」をLoRAローダーノードに接続
+3. trigger_word_countを2に設定
+4. 「combined_prompt」出力をテキストエンコーダーに接続
+5. 「lora_path」と「lora_strength」をLoRAローダーノードに接続
 
 ## 高度な設定
 

@@ -112,7 +112,6 @@ Simply create a new JSON file in `config/lora_style/` directory:
 
 #### Required Inputs
 - **category**: Select the LoRA category to choose from
-- **num_loras**: Number of LoRAs to select (1-5)
 - **trigger_word_count**: Number of trigger words to apply per LoRA (0-5)
 - **seed**: Random seed for reproducible results (-1 for random)
 - **enable_trigger_words**: Enable/disable automatic trigger word application
@@ -133,10 +132,9 @@ Simply create a new JSON file in `config/lora_style/` directory:
 
 1. Connect a "LoRA Random Selector" node
 2. Set category to "character"
-3. Set num_loras to 1
-4. Set trigger_word_count to 2
-5. Connect the "combined_prompt" output to your text encoder
-6. Connect the "lora_path" and "lora_strength" to a LoRA loader node
+3. Set trigger_word_count to 2
+4. Connect the "combined_prompt" output to your text encoder
+5. Connect the "lora_path" and "lora_strength" to a LoRA loader node
 
 ## Advanced Configuration
 
